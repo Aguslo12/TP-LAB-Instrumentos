@@ -1,10 +1,11 @@
 import { useLocation } from "react-router-dom";
 import { iInstrumento } from "../../types/iInstrumento";
+import { Link } from "react-router-dom"
 
 export const Detalle = () => {
   const locacion = useLocation();
 
-  const data = locacion.state.datos as iInstrumento;
+  const data = locacion.state.data as iInstrumento;
 
   function envio() {
     if (data.costoEnvio === "G") {
@@ -26,7 +27,7 @@ export const Detalle = () => {
       <div className="card lg:card-side bg-gray w-auto bg-white text-black flex-col mb-auto mt-14">
         <figure>
           <img
-            src={`/img/${data.imagen}`}
+            src={data.imagen}
             alt="Instrumento"
             className="flex w-96 h-auto"
           />
@@ -44,7 +45,7 @@ export const Detalle = () => {
           <p className="m-5">Costo Envío: {envio()}</p>
           <p className="m-5 w-96">{data.descripcion}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-success m-5">Agregar al carrito</button>
+            <Link to={"/productos"}><button className="btn btn-error m-5">Volver</button> </Link>
           </div>
         </div>
       </div>

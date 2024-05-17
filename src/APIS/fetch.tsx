@@ -1,3 +1,4 @@
+import { IPedido } from "../types/IPedido";
 import { iInstrumento } from "../types/iInstrumento";
 
 export const fetchAllData = async () => {
@@ -57,6 +58,22 @@ export const deleteInstrumento = async (instrumento: iInstrumento) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(instrumento)
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
+export const postPedido = async (pedido: IPedido) => {
+    const response = await fetch('http://localhost:8080/pedidos/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pedido)
     });
 
     if (!response.ok) {

@@ -3,8 +3,10 @@ import { Navbar } from "./components/Navbar/Navbar"
 import { Productos } from "./pages/Productos/Productos"
 import { DondeEstamos } from "./pages/DondeEstamos/DondeEstamos"
 import Menu from "./pages/Menu/Menu"
-import { Detalle } from "./components/Detalle/Detalle"
+import { Detalle } from "./pages/Detalle/Detalle"
 import { Grilla } from "./pages/Grilla/Grilla"
+import { CarritoPage } from "./pages/CarritoPage/CarritoPage"
+import { CarritoContextProvider } from "./context/CarritoContext"
 
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <CarritoContextProvider>
       <Navbar/>
         <Routes>
           <Route path="/" element={<Menu/>}/>
@@ -19,7 +22,9 @@ function App() {
           <Route path="/ubicacion" element={<DondeEstamos/>}/>
           <Route path="/detalle/:id" element={<Detalle/>}/>
           <Route path="/grilla" element={<Grilla/>}/>
+          <Route path="/paginaCarrito" element={<CarritoPage/>}/>
         </Routes>
+      </CarritoContextProvider>
       </BrowserRouter>
     </>
   )

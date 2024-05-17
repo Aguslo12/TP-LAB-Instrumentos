@@ -32,8 +32,6 @@ const FormInstrumento: FC<IFormInstrumento> = ({ open, setOpen, values }) => {
         setOpen(false);
     };
 
-    console.log(values)
-
     return (
         <Formik initialValues={values} onSubmit={handleSubmit}>
 

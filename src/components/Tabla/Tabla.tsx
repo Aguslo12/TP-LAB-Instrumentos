@@ -11,9 +11,13 @@ const Tabla = () => {
     setData(datos);
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [openBorrar, setOpenBorrar] = useState(false);
+
   useEffect(() => {
     traerDatos();
-  }, []);
+  }, [isOpen, openBorrar]);
 
   const vacio = {
     id: 0,
@@ -49,7 +53,6 @@ const Tabla = () => {
     },
   });
 
-  const [isOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setFormValues(vacio);
@@ -69,6 +72,7 @@ const Tabla = () => {
   const openDELETE = async (id) => {
     const DELETEvalues = await fetchIdData(id);
     await deleteInstrumento(DELETEvalues);
+    setOpenBorrar(!openBorrar)
   };
 
   return (
