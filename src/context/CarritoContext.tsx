@@ -10,62 +10,42 @@ interface CartContextType {
 }
 
 // Crear contexto
-export const CartContext = createContext<CartContextType>({
-  cart: [],
-  addCarrito: () => {},
-  removeItemCarrito: () => {},
-  limpiarCarrito: () => {},
-});
+export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 // Crear provide, encargado de proveer acceso al contexto
 export function CarritoContextProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<IDetallePedido[]>([]);
 
-  const addCarrito = async (product: IDetallePedido) => {
-    let existe: boolean = false;
-    cart.forEach(async (element: IDetallePedido) => {
-      if (element.instrumento.id === product.instrumento.id) {
-        
-        existe = true;
-        return existe;
+  const addCarrito = (product: IDetallePedido) => {
+    setCart(prevCart => {
+      const existingProductIndex = prevCart.findIndex(item => item.instrumento.id === product.instrumento.id);
+      if (existingProductIndex >= 0) {
+        const updatedCart = prevCart.map((item, index) =>
+          index === existingProductIndex ? { ...item, cantidad: item.cantidad + 1 } : item
+        );
+        return updatedCart;
+      } else {
+        return [...prevCart, { ...product, cantidad: 1 }];
       }
     });
-    if (existe) {
-      
-      product.cantidad += 1
-      const cartClonado = structuredClone(
-        cart.filter((item) => item.instrumento.id !== product.instrumento.id)
-      );
-      cartClonado.push(product);
-      setCart(cartClonado);
-      
-    } else {
-      setCart((prevCart) => [...prevCart, product]);
-    }
-    
   };
 
-  const removeItemCarrito = async (product: IDetallePedido) => {
-    let existe: boolean = false;
-    cart.forEach(async (element: IDetallePedido) => {
-      if (element.instrumento.id === product.instrumento.id) {
-        existe = true;
-        return existe;
+  const removeItemCarrito = (product: IDetallePedido) => {
+    setCart(prevCart => {
+      const existingProductIndex = prevCart.findIndex(item => item.instrumento.id === product.instrumento.id);
+      if (existingProductIndex >= 0) {
+        const existingProduct = prevCart[existingProductIndex];
+        if (existingProduct.cantidad > 1) {
+          const updatedCart = prevCart.map((item, index) =>
+            index === existingProductIndex ? { ...item, cantidad: item.cantidad - 1 } : item
+          );
+          return updatedCart;
+        } else {
+          return prevCart.filter((item, index) => index !== existingProductIndex);
+        }
       }
+      return prevCart;
     });
-
-    if (existe) {
-      console.log("EXISTE");
-      if(product.cantidad > 1){
-        product.cantidad -= 1
-        const cartClonado = await structuredClone(cart.filter(item => item.instrumento.id !== product.instrumento.id))
-        await cartClonado.push(product)
-        setCart(cartClonado)
-      }
-      else{
-        await setCart(prevCart => prevCart.filter(item => item.instrumento.id !== product.instrumento.id))
-      }
-    }
   };
 
   const limpiarCarrito = () => {
@@ -73,8 +53,10 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <CartContext.Provider value={{cart, addCarrito, limpiarCarrito, removeItemCarrito}}>
-        {children}
+    <CartContext.Provider value={{ cart, addCarrito, removeItemCarrito, limpiarCarrito }}>
+      {children}
     </CartContext.Provider>
-  )
+  );
 }
+
+

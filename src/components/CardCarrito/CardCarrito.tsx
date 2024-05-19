@@ -56,7 +56,7 @@ const CardCarrito = () => {
           <div className="flex justify-center w-screen h-full">
             <div className="align-middle card bg-white shadow-xl items-center justify-center w-1/3 h-28 top-12">
               <div className="card-body">
-                <h2 className="card-title text-4xl text-black text-pretty">No hay productos agregados</h2>
+                <h2 className="card-title text-4xl text-black text-pretty font-light">No hay productos agregados</h2>
               </div>
             </div>
           </div>
