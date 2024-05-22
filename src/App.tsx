@@ -7,6 +7,8 @@ import { Detalle } from "./pages/Detalle/Detalle"
 import { Grilla } from "./pages/Grilla/Grilla"
 import { CarritoPage } from "./pages/CarritoPage/CarritoPage"
 import { CarritoContextProvider } from "./context/CarritoContext"
+import { MpSuccess } from "./pages/MercadoPago/MpSuccess"
+import { MpFailure } from "./pages/MercadoPago/MpFailure"
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/detalle/:id" element={<Detalle/>}/>
           <Route path="/grilla" element={<Grilla/>}/>
           <Route path="/paginaCarrito" element={<CarritoPage/>}/>
+          <Route path="/pagoRealizado" element={<MpSuccess/>}></Route>
+          <Route path="/pagoError" element={<MpFailure/>}></Route>
         </Routes>
       </CarritoContextProvider>
       </BrowserRouter>

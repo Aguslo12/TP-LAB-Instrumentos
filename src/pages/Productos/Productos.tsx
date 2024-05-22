@@ -27,6 +27,5 @@ export const Productos = () => {
           ))}
       </div>
     </div>
-    
   )
 }
