@@ -1,16 +1,16 @@
-import { Field, Form, Formik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
-import { fetchAllUsuarios } from "../../APIS/fetch";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Usuario } from "../../../types/Usuario";
-import { UsuarioShort } from "../../../types/UsuarioShort";
-import { MD5 } from "crypto-js";
+import { fetchAllUsuarios, postUsuario } from "../../APIS/fetch";
+import { Field, Form, Formik } from "formik";
+import { Roles } from "../../../enums/Roles";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
-export const Login = () => {
-  const navigate = useNavigate();
+export const Register = () => {
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [data, setData] = useState<Usuario[]>([]);
+  const [actualizacion, setActualizacion] = useState(false);
+  const [nombreUsado, setNombreUsado] = useState(false);
 
   const traerDatos = async () => {
     const datos = await fetchAllUsuarios();
@@ -20,7 +20,9 @@ export const Login = () => {
 
   useEffect(() => {
     traerDatos();
-  }, []);
+  }, [actualizacion]);
+
+  const rolesArray = Object.values(Roles);
 
   const mostrarYEsconderAlerta = () => {
     setMostrarAlerta(true);
@@ -29,53 +31,32 @@ export const Login = () => {
     }, 3000);
   };
 
-  const [jsonUsuario, setJSONUsuario] = useState<any>(
-    localStorage.getItem("usuario")
-  );
-  console.log("NASHEIII")
-  console.log("JSON " + jsonUsuario);
-  const usuarioLogueado: Usuario = JSON.parse(jsonUsuario) as Usuario;
+  const mostrarUsadoONo = () => {
+    setNombreUsado(true);
+    setTimeout(() => {
+      setNombreUsado(false);
+    }, 3000);
+  };
 
+  const enviarUsuario = async (usuario: Usuario) => {
+    const usuarioEncontrado = data.find(
+      (actual: Usuario) => actual.nombreUsuario === usuario.nombreUsuario
+    );
+    if (usuarioEncontrado) {
+      mostrarUsadoONo();
+    } else {
+      const response = await postUsuario(usuario);
+      console.log(response);
+      mostrarYEsconderAlerta();
+      setActualizacion(!actualizacion);
+    }
+  };
 
   const schema = Yup.object().shape({
     nombreUsuario: Yup.string().required("El nombre de usuario es obligatorio"),
     clave: Yup.string().required("La contraseña es obligatoria"),
+    rol: Yup.string().required("El rol es obligatorio"),
   });
-
-  const verificarUsuario = async (usuario: UsuarioShort) => {
-    const inputHash = MD5(usuario.clave).toString();
-    const usuarioEncontrado = data.find(
-      (actual: Usuario) => actual.nombreUsuario === usuario.nombreUsuario
-    );
-    console.log(usuarioEncontrado?.clave);
-    console.log(inputHash);
-    if (usuarioEncontrado) {
-      const storedHash = usuarioEncontrado.clave;
-      if (inputHash === storedHash) {
-        console.log("Contraseña válida");
-        localStorage.setItem(
-          "usuario",
-          JSON.stringify(
-            data.find(
-              (actual: Usuario) =>
-                actual.nombreUsuario === usuario.nombreUsuario
-            )
-          )
-        );
-        navigate("/menu", {
-          replace: true,
-          state: {
-            logged: true,
-            usuario: usuario,
-          },
-        });
-      } else {
-        console.log("Contraseña incorrecta");
-      }
-    } else {
-      mostrarYEsconderAlerta();
-    }
-  };
 
   return (
     <div className="bg-gradient-to-br from-black to-slate-900 h-screen flex items-center justify-center relative z-50">
@@ -88,15 +69,15 @@ export const Login = () => {
             rol: "",
             activo: true,
           }}
-          onSubmit={verificarUsuario}
-          validationSchema={schema}
+          onSubmit={enviarUsuario}
+          validationSchema={schema} // Pasar el esquema de validación
         >
           {(
             { errors, touched } // Obtener los errores y el estado de toque de los campos del formulario
           ) => (
             <Form className="card-body">
               <h1 className="card-title flex justify-center text-3xl font-extralight text-white mb-5">
-                Iniciar Sesión
+                Registrarse
               </h1>
               <div className="space-y-5 text-white">
                 <label className=" italic input input-bordered flex items-center font-extralight gap-3">
@@ -129,13 +110,59 @@ export const Login = () => {
                     {errors.clave}
                   </div>
                 )}
+                <div className="flex row">
+                  <div className="flex input items-center italic font-extralight">
+                    Rol
+                  </div>
+                  <Field
+                    id="rol"
+                    name="rol"
+                    as="select"
+                    className="select select-bordered w-52 ml-2 max-w-xs font-normal"
+                  >
+                    <option disabled value="">
+                      Elige un rol
+                    </option>
+                    {rolesArray.map((rol, index) => (
+                      <option key={index} value={rol}>
+                        {rol}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                {errors.rol && touched.rol && (
+                  <div className="text-red-500 font-normal text-left text-sm">
+                    {errors.rol}
+                  </div>
+                )}
                 <button
                   type="submit"
                   className="btn btn-outline w-full text-xl font-extralight"
                 >
-                  Ingresar
+                  Registrarse
                 </button>
                 {mostrarAlerta && (
+                  <div
+                    role="alert"
+                    className="alert alert-success alerta animate__animated animate__fadeInUp"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="stroke-current shrink-0 h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span className="text-white">Usuario registrado con éxito!</span>
+                  </div>
+                )}
+                {nombreUsado && (
                   <div role="alert" className="alert alert-error">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -150,13 +177,13 @@ export const Login = () => {
                         d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    <span className="text-white">Error! Usuario no encontrado.</span>
+                    <span className="text-white">Error! Nombre de usuario en uso.</span>
                   </div>
                 )}
               </div>
-              <Link to={"/register"}>
+              <Link to={"/"}>
                 <button className="text-left font-thin ml-1 mt-2 hover:underline">
-                  Registrarse
+                  Iniciar Sesión
                 </button>
               </Link>
             </Form>

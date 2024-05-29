@@ -1,5 +1,6 @@
 import { IPedido } from "../../types/IPedido";
 import PreferenceMP from "../../types/Mercadopago/PreferenceMP";
+import { Usuario } from "../../types/Usuario";
 import { iInstrumento } from "../../types/iInstrumento";
 
 export const fetchAllData = async () => {
@@ -106,3 +107,25 @@ export async function createPreferenceMP(pedido?: IPedido) {
     throw new Error('Error: Response is undefined or id is not present in the response');
   }
 }
+
+export const fetchAllUsuarios = async () => {
+  const response = await fetch("http://localhost:8080/usuarios/all");
+  const data = await response.json();
+  return data;
+};
+
+export const postUsuario = async (usuario: Usuario) => {
+  const response = await fetch("http://localhost:8080/usuarios/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(usuario),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return await response.json();
+};
