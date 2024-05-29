@@ -1,24 +1,31 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { Navbar } from "./components/Navbar/Navbar"
-import { Productos } from "./pages/Productos/Productos"
-import { DondeEstamos } from "./pages/DondeEstamos/DondeEstamos"
-import Menu from "./pages/Menu/Menu"
-import { Detalle } from "./pages/Detalle/Detalle"
-import { Grilla } from "./pages/Grilla/Grilla"
-import { CarritoPage } from "./pages/CarritoPage/CarritoPage"
+import { Navbar } from "./components/ui/Navbar/Navbar"
+import { Productos } from "./components/screens/Productos/Productos"
+import { DondeEstamos } from "./components/screens/DondeEstamos/DondeEstamos"
+import Menu from "./components/screens/Menu/Menu"
+import { Detalle } from "./components/screens/Detalle/Detalle"
+import { Grilla } from "./components/screens/Grilla/Grilla"
+import { CarritoPage } from "./components/screens/CarritoPage/CarritoPage"
 import { CarritoContextProvider } from "./context/CarritoContext"
-import { MpSuccess } from "./pages/MercadoPago/MpSuccess"
-import { MpFailure } from "./pages/MercadoPago/MpFailure"
+import { MpSuccess } from "./components/screens/MercadoPago/MpSuccess"
+import { MpFailure } from "./components/screens/MercadoPago/MpFailure"
+import { Login } from "./components/screens/Login/Login"
+import { Suspense, useState } from "react"
+import { Loading } from "./components/screens/Loading/Loading"
 
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
 
   return (
     <>
       <BrowserRouter>
       <CarritoContextProvider>
       <Navbar/>
+       <Suspense fallback={<Loading/>}>
         <Routes>
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} ></Route>
           <Route path="/" element={<Menu/>}/>
           <Route path="/productos" element={<Productos/>}/>
           <Route path="/ubicacion" element={<DondeEstamos/>}/>
@@ -28,6 +35,7 @@ function App() {
           <Route path="/pagoRealizado" element={<MpSuccess/>}></Route>
           <Route path="/pagoError" element={<MpFailure/>}></Route>
         </Routes>
+        </Suspense>
       </CarritoContextProvider>
       </BrowserRouter>
     </>
