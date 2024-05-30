@@ -12,8 +12,6 @@ const Menu = () => {
     const [jsonUsuario, setJSONUsuario] = useState<any>(
         localStorage.getItem("usuario")
       );
-      console.log("ESTEEEEEEEEEEEEEEEEEEEEEEE")
-      console.log("JSON " + jsonUsuario);
       const usuarioLogueado: Usuario = JSON.parse(jsonUsuario) as Usuario;
 
 

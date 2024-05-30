@@ -15,7 +15,6 @@ export const Register = () => {
   const traerDatos = async () => {
     const datos = await fetchAllUsuarios();
     setData(datos);
-    console.log(datos);
   };
 
   useEffect(() => {
@@ -46,7 +45,6 @@ export const Register = () => {
       mostrarUsadoONo();
     } else {
       const response = await postUsuario(usuario);
-      console.log(response);
       mostrarYEsconderAlerta();
       setActualizacion(!actualizacion);
     }
@@ -148,7 +146,7 @@ export const Register = () => {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="stroke-current shrink-0 h-6 w-6"
+                      className="stroke-current shrink-0 h-6 w-6 fill-white"
                       fill="none"
                       viewBox="0 0 24 24"
                     >
@@ -166,7 +164,7 @@ export const Register = () => {
                   <div role="alert" className="alert alert-error">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="stroke-current shrink-0 h-6 w-6"
+                      className="stroke-current shrink-0 h-6 w-6 fill-white"
                       fill="none"
                       viewBox="0 0 24 24"
                     >
@@ -181,7 +179,7 @@ export const Register = () => {
                   </div>
                 )}
               </div>
-              <Link to={"/"}>
+              <Link to={"/"} className=" w-20">
                 <button className="text-left font-thin ml-1 mt-2 hover:underline">
                   Iniciar Sesión
                 </button>

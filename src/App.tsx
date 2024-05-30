@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Navbar } from "./components/ui/Navbar/Navbar";
 import { Productos } from "./components/screens/Productos/Productos";
 import { DondeEstamos } from "./components/screens/DondeEstamos/DondeEstamos";
 import Menu from "./components/screens/Menu/Menu";
@@ -10,18 +9,20 @@ import { CarritoContextProvider } from "./context/CarritoContext";
 import { MpSuccess } from "./components/screens/MercadoPago/MpSuccess";
 import { MpFailure } from "./components/screens/MercadoPago/MpFailure";
 import { Login } from "./components/screens/Login/Login";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Loading } from "./components/screens/Loading/Loading";
 import { Register } from "./components/screens/Register/Register";
 import RolUsuario from "./components/security/RolUsuario";
 import { Roles } from "./enums/Roles";
+
+const Navbar = lazy(() => import("./components/ui/Navbar/Navbar"));
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <CarritoContextProvider>
-          <Navbar />
+        <Navbar />
           <Suspense fallback={<Loading />}>
             <Routes>
               <Route path="/" element={<Login />}></Route>

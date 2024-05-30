@@ -15,7 +15,6 @@ export const Login = () => {
   const traerDatos = async () => {
     const datos = await fetchAllUsuarios();
     setData(datos);
-    console.log(datos);
   };
 
   useEffect(() => {
@@ -32,8 +31,6 @@ export const Login = () => {
   const [jsonUsuario, setJSONUsuario] = useState<any>(
     localStorage.getItem("usuario")
   );
-  console.log("NASHEIII")
-  console.log("JSON " + jsonUsuario);
   const usuarioLogueado: Usuario = JSON.parse(jsonUsuario) as Usuario;
 
 
@@ -47,12 +44,9 @@ export const Login = () => {
     const usuarioEncontrado = data.find(
       (actual: Usuario) => actual.nombreUsuario === usuario.nombreUsuario
     );
-    console.log(usuarioEncontrado?.clave);
-    console.log(inputHash);
     if (usuarioEncontrado) {
       const storedHash = usuarioEncontrado.clave;
       if (inputHash === storedHash) {
-        console.log("Contraseña válida");
         localStorage.setItem(
           "usuario",
           JSON.stringify(
@@ -70,7 +64,7 @@ export const Login = () => {
           },
         });
       } else {
-        console.log("Contraseña incorrecta");
+        console.log("Contraseña incorrecta"); // TODO que aparezca en el modal
       }
     } else {
       mostrarYEsconderAlerta();
@@ -139,7 +133,7 @@ export const Login = () => {
                   <div role="alert" className="alert alert-error">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="stroke-current shrink-0 h-6 w-6"
+                      className="stroke-current shrink-0 h-6 w-6 fill-white"
                       fill="none"
                       viewBox="0 0 24 24"
                     >
@@ -154,8 +148,8 @@ export const Login = () => {
                   </div>
                 )}
               </div>
-              <Link to={"/register"}>
-                <button className="text-left font-thin ml-1 mt-2 hover:underline">
+              <Link to={"/register"} className=" w-20">
+                <button className="text-left font-thin ml-1 mt-2 w-auto hover:underline">
                   Registrarse
                 </button>
               </Link>
