@@ -33,7 +33,7 @@ const Navbar = () => {
   return (
     <div className="fixed top-0 right-0 left-0 z-50 bg-black h-16 flex flex-row justify-between items-center text-white text-xl">
       <div className="pl-20 text-center">
-        <h1>Tienda Hendrix</h1>
+        <img src="https://hendrix.com.ar/wp-content/uploads/2024/01/Hendrix-Logo-ESTE-e1704313111559.png" alt="Tienda Hendrix " className="h-12"/>
       </div>
       <div className="flex flex-row justify-center align-middle space-x-10 font-bold mr-16 text-black">
         <Link to={"/menu"}>

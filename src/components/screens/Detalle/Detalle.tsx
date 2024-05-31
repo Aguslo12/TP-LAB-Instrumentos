@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { iInstrumento } from "../../../types/iInstrumento";
 import { Link } from "react-router-dom"
+import { FaTruck } from "react-icons/fa";
 
 export const Detalle = () => {
   const locacion = useLocation();
@@ -11,8 +12,7 @@ export const Detalle = () => {
     if (data.costoEnvio === "G") {
       return (
         <h3 className="text-green-500 flex justify-start flex-row">
-          <img src="/img/camion.png" />
-          Envío gratis a todo el país
+          <FaTruck className="h-6 w-6 mr-2"/> Envío gratis a todo el país
         </h3>
       );
     } else {
