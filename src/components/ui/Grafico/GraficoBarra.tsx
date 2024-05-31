@@ -51,7 +51,7 @@ const options: ChartOptions<'bar'> = {
       legend: {
         labels: {
           font: {
-            size: 18,
+            size: 18, // Tamaño de la fuente para la leyenda
           },
         },
       },
