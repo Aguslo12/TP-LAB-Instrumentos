@@ -35,7 +35,7 @@ const Navbar = () => {
       <div className="pl-20 text-center">
         <h1>Tienda Hendrix</h1>
       </div>
-      <div className="flex flex-row justify-center align-middle space-x-10 font-bold px-10 text-black">
+      <div className="flex flex-row justify-center align-middle space-x-10 font-bold mr-16 text-black">
         <Link to={"/menu"}>
           <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-xl text-white hover:bg-white hover:text-black">
             Inicio

@@ -6,6 +6,8 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { BsFillCartFill } from "react-icons/bs";
 import { useCarrito } from "../../../hooks/useContext";
 import { IDetallePedido } from "../../../types/IDetallePedido";
+import { FaTruck } from "react-icons/fa";
+
 
 export const Card: FC<iInstrumento> = ({
   id,
@@ -64,9 +66,9 @@ export const Card: FC<iInstrumento> = ({
 
   const envio = () => {
     if (costoEnvio === "G") {
-      return <h3 className='text-green-500 flex justify-start flex-row'><img src="/img/camion.png" alt="envio gratis" />Envío gratis a todo el país</h3>;
+      return <h3 className='text-green-500 flex justify-start flex-row'><FaTruck className="h-6 w-6 mr-2"/>  Envío gratis a todo el país</h3>;
     } else {
-      return <h3 className='text-orange-500'>Costo de envío ${costoEnvio}</h3>;
+      return <h3 className='text-orange-500'> Costo de envío ${costoEnvio}</h3>;
     }
   };
 

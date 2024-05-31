@@ -2,44 +2,64 @@ import { useState } from 'react';
 import { FaArrowAltCircleRight } from "react-icons/fa";
 
 
-const Slider = ({ images, text }) => {
-    const [index, setIndex] = useState(0);
-
-    const nextSlide = () => {
-        setIndex((oldIndex) => {
-            let index = oldIndex + 1;
-            if (index > images.length - 1) {
-                index = 0;
-            }
-            return index;
-        });
-    };
-
-    const prevSlide = () => {
-        setIndex((oldIndex) => {
-            let index = oldIndex - 1;
-            if (index < 0) {
-                index = images.length - 1;
-            }
-            return index;
-        });
-    };
-    console.log(text)
+const Slider = () => {
 
     return (
-        <div className='flex relative'>
-            <button className='absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-1 rounded-full opacity-100 z-10 mx-4 hover:scale-110 transition-all' onClick={prevSlide}>
-                <FaArrowAltCircleRight className='rotate-180 text-5xl' />
-            </button>
-            <img src={`/${images[index]}`} className='w-full h-screen transition-all' alt={`/${images[index]}`} />
-            <button className='absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full mx-4 hover:scale-110 transition-all p-1' onClick={nextSlide}>
-                <FaArrowAltCircleRight className='text-5xl' />
-            </button>
-
-            <div className='absolute top-2/3  bg-gradient-to-t from-black to-transparent w-full text-white text-xl text-center h-1/3  '>
-                <h1 className='absolute bottom-10 bg-white p-2 m-5 rounded-xl bg-opacity-15 font-extrabold'>{text}</h1>
-            </div>
+        <div className="carousel w-1/3 rounded-xl">
+      <div id="slide1" className="carousel-item relative w-full">
+        <img
+          src="https://www.percuforum.com/blog/wp-content/uploads/2023/02/brazil-6563310_640.jpg"
+          className="w-full"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide4" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide2" className="btn btn-circle">
+            ❯
+          </a>
         </div>
+      </div>
+      <div id="slide2" className="carousel-item relative w-full">
+        <img
+          src="https://cdn.pixabay.com/photo/2018/01/18/12/39/music-3090204__340.jpg"
+          className="w-full"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide1" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide3" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+      <div id="slide3" className="carousel-item relative w-full">
+        <img src="https://st2.depositphotos.com/1177973/9072/i/450/depositphotos_90729746-stock-photo-close-up-view-on-musical.jpg" className="w-full" />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide2" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide4" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+      <div id="slide4" className="carousel-item relative w-full">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/1/17/Okarina1.jpg"
+          className="w-full"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide3" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide1" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+    </div>
     );
 };
 
