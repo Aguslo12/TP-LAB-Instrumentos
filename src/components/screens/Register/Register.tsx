@@ -38,15 +38,20 @@ export const Register = () => {
   };
 
   const enviarUsuario = async (usuario: Usuario) => {
-    const usuarioEncontrado = data.find(
-      (actual: Usuario) => actual.nombreUsuario === usuario.nombreUsuario
-    );
-    if (usuarioEncontrado) {
-      mostrarUsadoONo();
+    console.log("QUE ONDA")
+    if(data.length <= 0) {
+      console.log(data.length)
     } else {
-      const response = await postUsuario(usuario);
-      mostrarYEsconderAlerta();
-      setActualizacion(!actualizacion);
+      const usuarioEncontrado = data.find(
+        (actual: Usuario) => actual.nombreUsuario === usuario.nombreUsuario
+      );
+      if (usuarioEncontrado) {
+        mostrarUsadoONo();
+      } else {
+        const response = await postUsuario(usuario);
+        mostrarYEsconderAlerta();
+        setActualizacion(!actualizacion);
+      }
     }
   };
 
@@ -68,7 +73,7 @@ export const Register = () => {
             activo: true,
           }}
           onSubmit={enviarUsuario}
-          validationSchema={schema} // Pasar el esquema de validación
+          validationSchema={schema}
         >
           {(
             { errors, touched } // Obtener los errores y el estado de toque de los campos del formulario

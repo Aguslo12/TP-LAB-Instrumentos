@@ -53,7 +53,6 @@ export const Card: FC<iInstrumento> = ({
     }
   };
 
-
   const eliminar = () => {
     if (data) {
       const detalle: IDetallePedido = { id: 0, cantidad, instrumento: data };

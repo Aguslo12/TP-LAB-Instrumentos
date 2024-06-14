@@ -129,3 +129,9 @@ export const postUsuario = async (usuario: Usuario) => {
 
   return await response.json();
 };
+
+export const fetchPedidos = async () => {
+  const response = await fetch("http://localhost:8080/pedidos/all");
+  const data = await response.json();
+  return data;
+}

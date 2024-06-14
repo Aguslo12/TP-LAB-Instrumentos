@@ -16,6 +16,8 @@ export const Productos = () => {
     useEffect(() => {
         traerDatos();
     }, [])
+
+    console.log(data)
   return (
     <div className="top-16 relative bg-gradient-to-br from-black to-slate-900">
       <div className="bg-white">

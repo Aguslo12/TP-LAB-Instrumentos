@@ -3,6 +3,10 @@ import { FaUserAlt } from "react-icons/fa";
 import { Usuario } from "../../../types/Usuario";
 import { useState } from "react";
 import { Roles } from "../../../enums/Roles";
+import { IoHomeSharp } from "react-icons/io5";
+import { FaShoppingCart } from "react-icons/fa";
+import { FaLocationDot, FaList, FaChartSimple } from "react-icons/fa6";
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -35,29 +39,37 @@ const Navbar = () => {
       <div className="pl-20 text-center">
         <img src="https://hendrix.com.ar/wp-content/uploads/2024/01/Hendrix-Logo-ESTE-e1704313111559.png" alt="Tienda Hendrix " className="h-12"/>
       </div>
-      <div className="flex flex-row justify-center align-middle space-x-10 font-bold mr-16 text-black">
+      <div className="flex flex-row justify-center align-middle space-x-6 font-bold mr-16 text-black">
         <Link to={"/menu"}>
-          <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-xl text-white hover:bg-white hover:text-black">
-            Inicio
+          <button onClick={actualizar} className="btn flex border-neutral-200 bg-neutral-950 text-base text-white hover:bg-white hover:text-black">
+          <IoHomeSharp /> Inicio
           </button>
         </Link>
         <Link to={"/productos"}>
-          <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-xl text-white hover:bg-white hover:text-black">
-            Productos
+          <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-base text-white hover:bg-white hover:text-black">
+          <FaShoppingCart /> Productos
           </button>
         </Link>
         <Link to={"/ubicacion"}>
-          <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-xl text-white hover:bg-white hover:text-black">
-            Donde Estamos
+          <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-base text-white hover:bg-white hover:text-black">
+          <FaLocationDot />  Donde Estamos
           </button>
         </Link>
         {
           (usuarioLogueado?.rol == Roles.ADMIN) ?
           <Link to={"/grilla"}>
-          <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-xl text-white hover:bg-white hover:text-black">
-            Grilla
+          <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-base text-white hover:bg-white hover:text-black">
+          <FaList /> Grilla
           </button>
-        </Link> : <div>hola</div>
+        </Link> : <div></div>
+        }
+        {
+          (usuarioLogueado?.rol == Roles.ADMIN) ?
+          <Link to={"/estadisticas"}>
+          <button onClick={actualizar} className="btn border-neutral-200 bg-neutral-950 text-base text-white hover:bg-white hover:text-black">
+          <FaChartSimple />  Reportes
+          </button>
+        </Link> : <div></div>
         }
       </div>
       <div className="dropdown dropdown-end">

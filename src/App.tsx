@@ -14,6 +14,9 @@ import { Loading } from "./components/screens/Loading/Loading";
 import { Register } from "./components/screens/Register/Register";
 import RolUsuario from "./components/security/RolUsuario";
 import { Roles } from "./enums/Roles";
+import { Stats } from "./components/screens/Stats/Stats";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = lazy(() => import("./components/ui/Navbar/Navbar"));
 
@@ -23,6 +26,7 @@ function App() {
       <BrowserRouter>
         <CarritoContextProvider>
         <Navbar />
+        <ToastContainer />
           <Suspense fallback={<Loading />}>
             <Routes>
               <Route path="/" element={<Login />}></Route>
@@ -32,6 +36,9 @@ function App() {
               <Route path="/detalle/:id" element={<Detalle />} />
               <Route element={<RolUsuario rol={Roles.ADMIN} />}>
                 <Route path="/grilla" element={<Grilla />} />
+              </Route>
+              <Route element={<RolUsuario rol={Roles.ADMIN} />}>
+                <Route path="/estadisticas" element={<Stats />} />
               </Route>
               <Route path="/paginaCarrito" element={<CarritoPage />} />
               <Route path="/pagoRealizado" element={<MpSuccess />}></Route>

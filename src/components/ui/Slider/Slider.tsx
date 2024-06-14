@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { FaArrowAltCircleRight } from "react-icons/fa";
-
 
 const Slider = () => {
 

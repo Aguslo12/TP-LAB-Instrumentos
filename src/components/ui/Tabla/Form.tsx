@@ -37,19 +37,19 @@ const FormInstrumento: FC<IFormInstrumento> = ({ open, setOpen, values }) => {
 
             <Form className='inset-0 flex items-center justify-center fixed bg-slate-950 bg-opacity-85 z-50 pb-20'>
 
-                <div className='flex flex-col justify-center items-center text-center bg-gradient-to-br from-slate-900 to-slate-700 w-2/5 rounded-md'>
+                <div className='flex flex-col justify-center items-center text-center bg-zinc-900 w-2/5 rounded-md border-white border-[1px]'>
 
 
                     <div className=' flex flex-col md:flex-row md:space-x-4  self-center my-4'>
 
                         <div className='flex flex-col justify-start   '>
                             <label htmlFor="instrumento" className='text-start font-bold text-slate-100 pb-2'>Instrumento:</label>
-                            <Field id="instrumento" required type="text" name="instrumento" placeholder={values.instrumento} className="p-2 outline-none border-b bg-white focus:border-black text-black" />
+                            <Field id="instrumento" required type="text" name="instrumento" placeholder={values.instrumento} className="p-2 outline-none border-b bg-white focus:border-black rounded-md text-black" />
                         </div>
 
                         <div className='flex flex-col '>
                             <label htmlFor="marca" className='text-start font-bold text-slate-100 pb-2'>Marca:</label>
-                            <Field id="marca" name="marca" type="text" required placeholder={values.marca} className="p-2 outline-none border-b transition-all bg-white focus:border-black text-black" />
+                            <Field id="marca" name="marca" type="text" required placeholder={values.marca} className="p-2 outline-none border-b transition-all bg-white focus:border-black rounded-md text-black" />
                         </div>
                     </div>
 
@@ -57,12 +57,12 @@ const FormInstrumento: FC<IFormInstrumento> = ({ open, setOpen, values }) => {
 
                         <div className='flex flex-col justify-start'>
                             <label htmlFor="modelo" className='text-start font-bold text-slate-100 pb-2'>Modelo:</label>
-                            <Field id="modelo" name="modelo" type="text" required placeholder={values.modelo} className="p-2 outline-none border-b bg-white focus:border-black transition-all text-black" />
+                            <Field id="modelo" name="modelo" type="text" required placeholder={values.modelo} className="p-2 outline-none border-b bg-white focus:border-black transition-all rounded-md text-black" />
                         </div>
 
                         <div className='flex flex-col '>
                             <label htmlFor="imagen" className='text-start font-bold text-slate-100 pb-2'>Imagen:</label>
-                            <Field id="imagen" name="imagen" type="text" required placeholder="URL DE LA IMAGEN" className="p-2 outline-none bg-white focus:border-black transition-all text-black" />
+                            <Field id="imagen" name="imagen" type="text" required placeholder="URL DE LA IMAGEN" className="p-2 outline-none bg-white focus:border-black transition-all rounded-md text-black" />
                         </div>
                     </div>
 
@@ -71,12 +71,12 @@ const FormInstrumento: FC<IFormInstrumento> = ({ open, setOpen, values }) => {
 
                         <div className='flex flex-col justify-start   '>
                             <label htmlFor="precio" className='text-start font-bold text-slate-100 pb-2'>Precio:</label>
-                            <Field id="precio" name="precio" type="number" required placeholder={values.precio} className="p-2 outline-none border-b bg-white focus:border-black transition-all text-black" />
+                            <Field id="precio" name="precio" type="number" required placeholder={values.precio} className="p-2 outline-none border-b bg-white focus:border-black rounded-md transition-all text-black" />
                         </div>
 
                         <div className='flex flex-col '>
                             <label htmlFor="costoEnvio" className='text-start font-bold text-slate-100 pb-2'>Costo Envío:</label>
-                            <Field id="costoEnvio" name="costoEnvio" type="number" required placeholder={values.costoEnvio} className="p-2 outline-none border-b bg-white focus:border-black transition-all text-black" />
+                            <Field id="costoEnvio" name="costoEnvio" type="number" required placeholder={values.costoEnvio} className="p-2 outline-none border-b bg-white focus:border-black transition-all rounded-md text-black" />
                         </div>
                     </div>
 
@@ -85,12 +85,12 @@ const FormInstrumento: FC<IFormInstrumento> = ({ open, setOpen, values }) => {
 
                         <div className='flex flex-col justify-start   '>
                             <label htmlFor="cantidadVendida" className='text-start font-bold text-slate-100 pb-2'>Cantidad Vendida:</label>
-                            <Field id="cantidadVendida" name="cantidadVendida" required type="number" placeholder={values.cantidadVendida} className="p-2 outline-none border-b bg-white focus:border-black transition-all text-black" />
+                            <Field id="cantidadVendida" name="cantidadVendida" required type="number" placeholder={values.cantidadVendida} className="p-2 outline-none border-b bg-white rounded-md focus:border-black transition-all text-black" />
                         </div>
 
                         <div className='flex flex-col '>
                             <label htmlFor="descripcion" className='text-start font-bold text-slate-100 pb-2'>Descripción:</label>
-                            <Field id="descripcion" name="descripcion" type="text" required placeholder={values.descripcion} className="p-2 outline-none border-b bg-white focus:border-black transition-all text-black" />
+                            <Field id="descripcion" name="descripcion" type="text" required placeholder={values.descripcion} className="p-2 outline-none border-b bg-white focus:border-black transition-all text-black rounded-md" />
                         </div>
                     </div>
 
@@ -98,7 +98,7 @@ const FormInstrumento: FC<IFormInstrumento> = ({ open, setOpen, values }) => {
                     <div className=' flex flex-col md:flex-row md:space-x-4   self-center my-4'>
                         <div className='flex flex-col w-full '>
                             <label htmlFor="categoria" className='text-xl font-bold text-slate-100'>Categoría:</label>
-                            <Field as="select" id="categoria" name="categoria.id" className="p-4 m-2 active:scale-90 transition-all bg-white focus:border-black text-black">
+                            <Field as="select" id="categoria" name="categoria.id" className="p-4 m-2 active:scale-90 transition-all bg-white focus:border-black text-black rounded-md">
                                 {data.map((i: ICategoria) =>
                                     <option key={i.id} value={i.id.toString()}>{i.descripcion}</option>
                                 )}

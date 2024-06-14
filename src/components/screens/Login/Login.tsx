@@ -84,6 +84,8 @@ export const Login = () => {
           }}
           onSubmit={verificarUsuario}
           validationSchema={schema}
+          validateOnChange={false}
+          validateOnBlur={false}
         >
           {(
             { errors, touched } // Obtener los errores y el estado de toque de los campos del formulario
